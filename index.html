@@ -156,6 +156,39 @@
             text-align: right;
             font-weight: bold;
         }
+        /* Hot Takes Styling */
+        .take-card {
+            background-color: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        .take-text {
+            font-size: 1.1rem;
+            margin: 0 0 1rem 0;
+            font-weight: 500;
+        }
+        .vote-controls {
+            display: flex;
+            justify-content: space-between;
+        }
+        .vote-btn {
+            background: #f4f4f9;
+            border: 1px solid #ccc;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            flex: 1;
+            margin: 0 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .vote-btn:first-child { margin-left: 0; }
+        .vote-btn:last-child { margin-right: 0; }
+        .vote-btn.fire:hover { background: #ffebee; border-color: #ff5252; }
+        .vote-btn.trash:hover { background: #e8f5e9; border-color: #4caf50; }
 
     </style>
 </head>
@@ -205,10 +238,18 @@
         </div>
 
 
-        <div id="hot-takes" class="app-section">
+              <div id="hot-takes" class="app-section">
             <h2>🔥 Hot Takes</h2>
             <p>Drop a controversial opinion and let the group vote.</p>
+            
+            <textarea id="new-take-text" placeholder='"Die Hard is a Christmas movie..."' style="width: 100%; padding: 0.8rem; box-sizing: border-box; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 1rem; font-family: inherit; resize: vertical;"></textarea>
+            
+            <button onclick="saveTake()" style="width: 100%; padding: 0.8rem; background-color: var(--active-color); color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-bottom: 2rem;">Post Take</button>
+
+            <div id="takes-list">
+                </div>
         </div>
+
 
         <div id="hype-wall" class="app-section">
             <h2>🚀 Hype Wall</h2>
@@ -351,10 +392,64 @@
             });
         }
 
-        // Make sure quotes load automatically when the app opens
+                // Hot Takes Logic
+        function saveTake() {
+            const takeInput = document.getElementById('new-take-text');
+            if (!takeInput.value.trim()) return;
+
+            const newTake = {
+                id: Date.now(), // Creates a unique ID to track votes
+                text: takeInput.value.trim(),
+                fireVotes: 0,
+                trashVotes: 0
+            };
+
+            const savedTakes = JSON.parse(localStorage.getItem('friendsTakes')) || [];
+            savedTakes.unshift(newTake);
+            localStorage.setItem('friendsTakes', JSON.stringify(savedTakes));
+
+            takeInput.value = '';
+            loadTakes();
+        }
+
+        function loadTakes() {
+            const takesList = document.getElementById('takes-list');
+            const savedTakes = JSON.parse(localStorage.getItem('friendsTakes')) || [];
+            
+            takesList.innerHTML = ''; 
+
+            savedTakes.forEach(take => {
+                const card = document.createElement('div');
+                card.className = 'take-card';
+                card.innerHTML = `
+                    <p class="take-text">${take.text}</p>
+                    <div class="vote-controls">
+                        <button class="vote-btn fire" onclick="voteTake(${take.id}, 'fire')">🔥 Fire (${take.fireVotes})</button>
+                        <button class="vote-btn trash" onclick="voteTake(${take.id}, 'trash')">🗑️ Trash (${take.trashVotes})</button>
+                    </div>
+                `;
+                takesList.appendChild(card);
+            });
+        }
+
+        function voteTake(id, type) {
+            let savedTakes = JSON.parse(localStorage.getItem('friendsTakes')) || [];
+            const takeIndex = savedTakes.findIndex(t => t.id === id);
+            
+            if (takeIndex > -1) {
+                if (type === 'fire') savedTakes[takeIndex].fireVotes++;
+                if (type === 'trash') savedTakes[takeIndex].trashVotes++;
+                localStorage.setItem('friendsTakes', JSON.stringify(savedTakes));
+                loadTakes(); // Refresh to show the updated vote count
+            }
+        }
+
+        // Make sure data loads automatically when the app opens
         window.onload = function() {
             loadQuotes();
+            loadTakes();
         };
+
 
     </script>
 </body>
