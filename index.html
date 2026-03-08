@@ -163,10 +163,16 @@
             <p>Track those friendly wagers. No cash, just pride.</p>
         </div>
 
-        <div id="randomizer" class="app-section">
+                <div id="randomizer" class="app-section">
             <h2>🎲 Randomizer</h2>
-            <p>Spin the wheel to settle the "Where should we eat?" debate.</p>
+            <p>Enter options separated by commas (e.g., Pizza, Tacos, Burgers):</p>
+            <input type="text" id="randomizer-options" placeholder="Option 1, Option 2, Option 3..." style="width: 100%; padding: 0.8rem; box-sizing: border-box; margin-bottom: 1rem; border-radius: 8px; border: 1px solid #ccc;">
+            <button onclick="spinRandomizer()" style="width: 100%; padding: 1rem; background-color: var(--active-color); color: white; border: none; border-radius: 8px; font-size: 1.2rem; cursor: pointer;">Spin It!</button>
+            <div id="randomizer-result" style="margin-top: 2rem; font-size: 1.5rem; font-weight: bold; text-align: center; min-height: 40px; transition: transform 0.2s;">
+                Who will it be?
+            </div>
         </div>
+
 
         <div id="hot-takes" class="app-section">
             <h2>🔥 Hot Takes</h2>
@@ -231,6 +237,48 @@
                 document.getElementById('pin-error').style.display = 'block';
                 document.getElementById('pin-input').value = ''; // Clear the wrong guess
             }
+        }
+        // Randomizer Logic
+        function spinRandomizer() {
+            const input = document.getElementById('randomizer-options').value;
+            const resultDisplay = document.getElementById('randomizer-result');
+            
+            if (!input.trim()) {
+                resultDisplay.innerText = "Please enter some options!";
+                return;
+            }
+
+            // Split the input by commas and clean up extra spaces
+            const options = input.split(',').map(opt => opt.trim()).filter(opt => opt.length > 0);
+            
+            if (options.length < 2) {
+                resultDisplay.innerText = "Enter at least 2 options!";
+                return;
+            }
+
+            // Reset styling for the spin
+            resultDisplay.style.color = "var(--text-color)";
+            resultDisplay.style.transform = "scale(1)";
+
+            // Rapid shuffle animation
+            let spins = 0;
+            const maxSpins = 20; // How many times it shuffles before stopping
+            
+            const spinInterval = setInterval(() => {
+                // Pick a random option for the current shuffle frame
+                const randomTemp = Math.floor(Math.random() * options.length);
+                resultDisplay.innerText = options[randomTemp];
+                spins++;
+
+                if (spins >= maxSpins) {
+                    clearInterval(spinInterval);
+                    // Select and display the official winner
+                    const finalWinner = options[Math.floor(Math.random() * options.length)];
+                    resultDisplay.innerHTML = "🎉 " + finalWinner + " 🎉";
+                    resultDisplay.style.color = "var(--active-color)";
+                    resultDisplay.style.transform = "scale(1.2)";
+                }
+            }, 100); // 100 milliseconds per shuffle
         }
 
     </script>
