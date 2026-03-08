@@ -153,10 +153,20 @@
     </header>
 
     <main>
-        <div id="quote-vault" class="app-section active">
+               <div id="quote-vault" class="app-section active">
             <h2>💬 Quote Vault</h2>
             <p>Immortalize the ridiculous things your friends say.</p>
+            
+            <textarea id="new-quote-text" placeholder='"I thought penguins were fish..."' style="width: 100%; padding: 0.8rem; box-sizing: border-box; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 0.5rem; font-family: inherit; resize: vertical;"></textarea>
+            
+            <input type="text" id="new-quote-author" placeholder="- Who said it?" style="width: 100%; padding: 0.8rem; box-sizing: border-box; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 1rem;">
+            
+            <button onclick="saveQuote()" style="width: 100%; padding: 0.8rem; background-color: var(--active-color); color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-bottom: 2rem;">Save Quote</button>
+
+            <div id="quote-list">
+                </div>
         </div>
+
 
         <div id="banter-bets" class="app-section">
             <h2>🤝 Banter Bets</h2>
