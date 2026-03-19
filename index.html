@@ -23,10 +23,9 @@
 
         .hero-image {
             width: 100%;
-            height: 450px; /* Increased to give the logo room to breathe and allow overlap */
+            height: 450px; 
             object-fit: cover;
         }
-
 
         .logo-overlay {
             position: absolute;
@@ -37,6 +36,7 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
             font-family: 'Georgia', serif;
             text-align: center;
+            width: 90%;
         }
 
         .logo-text {
@@ -54,7 +54,7 @@
 
         /* --- Profile Image --- */
         .profile-container {
-            margin-top: -225px; /* Pulls exactly 75% of the 300px image up over the video */
+            margin-top: -225px; 
             position: relative;
             z-index: 10;
         }
@@ -69,7 +69,7 @@
             background-color: #eee;
         }
 
-        /* --- Identity Text --- */
+        /* --- Identity Text & Share Button --- */
         .details {
             margin-top: 25px;
             padding: 0 20px;
@@ -88,13 +88,35 @@
             margin: 8px 0;
         }
 
+        .share-page-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .share-page-btn:hover {
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
         /* --- Action Buttons --- */
         .button-group {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap; /* Allows buttons to wrap to a new line if needed */
             gap: 15px;
             margin: 35px auto 0;
-            max-width: 500px;
+            max-width: 650px;
             padding: 0 20px;
         }
 
@@ -107,19 +129,21 @@
             text-decoration: none;
             color: white;
             font-weight: bold;
-            flex: 1;
+            flex: 1 1 200px; /* Allows buttons to grow and shrink evenly */
             text-transform: uppercase;
             font-size: 0.85rem;
             letter-spacing: 0.5px;
             transition: opacity 0.2s;
+            text-align: center;
         }
 
         .btn:hover {
             opacity: 0.9;
         }
 
-        .btn-flowers { background-color: #d68c3e; } /* Orange shade from image */
-        .btn-tree { background-color: #5f8233; }    /* Green shade from image */
+        .btn-flowers { background-color: #d68c3e; } 
+        .btn-tree { background-color: #5f8233; }    
+        .btn-memories { background-color: #4A90E2; } /* Soft blue for memories */
 
         /* --- Obituary Content --- */
         .content-body {
@@ -154,10 +178,11 @@
         @media (max-width: 600px) {
             .name { font-size: 1.9rem; }
             .button-group { flex-direction: column; }
-            .hero-image { height: 350px; } /* Increased for mobile video */
+            .btn { flex: none; width: 100%; box-sizing: border-box; }
+            .hero-image { height: 350px; } 
             .logo-overlay { top: 20px; width: 95%; }
             .logo-text { font-size: 1.5rem; }
-            .profile-container { margin-top: -175px; } /* 75% overlap of the 230px mobile image */
+            .profile-container { margin-top: -175px; } 
             .profile-photo { width: 180px; height: 230px; }
         }
     </style>
@@ -182,13 +207,21 @@
             <h1 class="name">Lisa R. Metzler</h1>
             <p class="date-location">d. March 14, 2026</p>
             <p class="date-location">Lancaster, PA</p>
+            
+            <button id="shareButton" class="share-page-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                    <polyline points="16 6 12 2 8 6"></polyline>
+                    <line x1="12" y1="2" x2="12" y2="15"></line>
+                </svg>
+                <span id="shareText">Share this Page</span>
+            </button>
         </div>
-
     </div>
 
     <div class="content-body">
         <p>
-            Lisa R. Metzler, age 37, of Lancaster, PA, passed away unexpectedly on Saturday, March 14, 2026. 
+            Lisa R. Metzler, age 37, of Lancaster, PA, passed away peacefully on Saturday, March 14, 2026. 
             Lisa will be remembered most for her kind, empathetic heart and her unwavering devotion to those she loved. 
             She had a profound connection to animals, particularly her cherished cat, Sapphire. 
         </p>
@@ -220,9 +253,34 @@
         <div class="button-group" style="padding-bottom: 40px;">
             <a href="https://websites.tukios.com/orders/v2/flowers/f91027a0-3be2-4fb9-99a5-f9db041ac8e7?ttm_origin=obituary&ttm_template=traditional&ttm_cta=f_sticky" class="btn btn-flowers" target="_blank">Send Flowers</a>
             <a href="https://www.overdoselifeline.org/donate/" class="btn btn-tree" target="_blank">Donate Now</a>
+            <a href="#" class="btn btn-memories" target="_blank">Share a Memory</a>
         </div>
 
     </div>
 
+    <script>
+        const shareBtn = document.getElementById('shareButton');
+        const shareText = document.getElementById('shareText');
+
+        shareBtn.addEventListener('click', async () => {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'In Loving Memory - Lisa R. Metzler',
+                        text: 'Please visit the memorial page for Lisa R. Metzler.',
+                        url: window.location.href
+                    });
+                } catch (err) {
+                    console.log('Error sharing:', err);
+                }
+            } else {
+                // Fallback for desktop or browsers that don't support native sharing
+                navigator.clipboard.writeText(window.location.href);
+                const originalText = shareText.innerHTML;
+                shareText.innerHTML = 'Link Copied!';
+                setTimeout(() => { shareText.innerHTML = originalText; }, 2500);
+            }
+        });
+    </script>
 </body>
 </html>
