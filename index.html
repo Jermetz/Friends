@@ -123,6 +123,63 @@
             color: #1e293b;
         }
 
+        /* --- Memorial Gathering Bulletin --- */
+        .gathering-bulletin {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid #475569;
+            border-radius: 8px;
+            padding: 35px 20px;
+            margin: 0 auto 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .gathering-title {
+            font-family: 'Georgia', serif;
+            font-size: 1.6rem;
+            color: #1e293b;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .gathering-text {
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .gathering-details {
+            font-weight: bold;
+            color: #334155;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .btn-directions {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #475569;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-directions:hover {
+            opacity: 0.9;
+        }
+
         /* --- Fancy Separator --- */
         .section-divider {
             display: flex;
@@ -225,6 +282,7 @@
             .profile-container { margin-top: -175px; } 
             .profile-photo { width: 180px; height: 230px; }
             .section-divider span { font-size: 1.3rem; }
+            .gathering-title { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -261,6 +319,25 @@
     </div>
 
     <div class="content-body">
+        
+        <div class="gathering-bulletin">
+            <h2 class="gathering-title">Memorial Gathering</h2>
+            <p class="gathering-text">
+                Family and friends are warmly invited to join us in celebrating Lisa’s life, sharing fond memories, and finding comfort in one another's company.
+            </p>
+            <div class="gathering-details">
+                Saturday, April 4th<br>
+                New Danville Fire Co.<br>
+                43 Marticville Road, Lancaster, PA 17603
+            </div>
+            <a href="https://maps.google.com/?q=43+Marticville+Road,+Lancaster,+PA+17603" class="btn-directions" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                Get Directions
+            </a>
+        </div>
         
         <div class="section-divider">
             <span>Obituary</span>
@@ -315,7 +392,9 @@
         </div>
         <p style="text-align: center; color: #64748b; margin-bottom: 30px;">Please share your favorite stories, photos, or condolences below for the family to read.</p>
 
-    </div> <div style="width: 100%; margin-bottom: 50px; border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1);">
+    </div> 
+
+    <div style="width: 100%; margin-bottom: 50px; border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1);">
         <div class="padlet-embed" style="box-sizing:border-box;overflow:hidden;position:relative;width:100%;background:#F4F4F4"><p style="padding:0;margin:0"><iframe src="https://padlet.com/embed/d55aoz8hq6c5euzy" frameborder="0" allow="camera;microphone;geolocation;display-capture;clipboard-write" style="width:100%;height:608px;display:block;padding:0;margin:0"></iframe></p><div style="display:flex;align-items:center;justify-content:end;margin:0;padding:8px 8px 8px 0"><a href="https://padlet.com?ref=embed" style="display:flex;align-items:center;gap:5px;flex-grow:0;margin:0;border:none;padding:0;text-decoration:none" target="_blank"><span aria-hidden style="color:#9E9E9E;font-size:10px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;line-height:1">Made with</span><img src="https://padlet.net/emails/padlet_email_logo_2026_text-dark-200.png" height="12" style="padding:0;margin:0;background:0 0;border:none;box-shadow:none;display:block" alt="Made with Padlet"></a></div></div>
     </div>
 
