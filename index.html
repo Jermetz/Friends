@@ -270,6 +270,72 @@
             margin-bottom: 10px;
         }
 
+        /* --- RSVP Modal Styles --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: left;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #64748b;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #334155;
+            font-size: 0.9rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .btn-submit {
+            background-color: #4A90E2;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: opacity 0.2s;
+        }
+        .btn-submit:hover { opacity: 0.9; }
+
         /* Mobile Adjustments */
         @media (max-width: 600px) {
             .name { font-size: 1.9rem; }
@@ -323,20 +389,26 @@
         <div class="gathering-bulletin">
             <h2 class="gathering-title">Memorial Gathering</h2>
             <p class="gathering-text">
-                Family and friends are warmly invited to join us in celebrating Lisa’s life, sharing fond memories, and finding comfort in one another's company.
+                Family and friends are warmly invited to join us in celebrating Lisa’s life, sharing fond memories, and finding comfort in one another's company.<br><br>
+                <em>Join us for a drop-in lunch featuring light fare (appetizers and desserts).</em>
             </p>
             <div class="gathering-details">
-                Saturday, April 4th<br>
-                New Danville Fire Co.<br>
-                43 Marticville Road, Lancaster, PA 17603
+                Saturday, April 11th | 11:00 AM – 2:00 PM<br>
+                The Willows at Historic Strasburg<br>
+                1500 Historic Drive, Strasburg, PA 17579
             </div>
-            <a href="https://maps.google.com/?q=43+Marticville+Road,+Lancaster,+PA+17603" class="btn-directions" target="_blank">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-                Get Directions
-            </a>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <a href="https://maps.apple.com/?q=1500+Historic+Drive+Strasburg+PA+17579" class="btn-directions" target="_blank">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    Get Directions
+                </a>
+                <button id="openRsvpBtn" class="btn-directions" style="background-color: #4A90E2; border: none; cursor: pointer;">
+                    Please RSVP
+                </button>
+            </div>
         </div>
         
         <div class="section-divider">
@@ -357,8 +429,9 @@
 
         <p>
             A woman of vibrant spirit, Lisa loved to sing with a powerful and sincere voice. Her innocence and 
-            infectious laughter were hallmarks of her personality, leaving a lasting impression on everyone she met.
-
+            infectious laughter were hallmarks of her personality, leaving a lasting impression on everyone she met. 
+            Though she had no children of her own, her nieces and nephews knew her as a true friend and a 
+            constant source of support.
         </p>
 
         <p>
@@ -397,7 +470,25 @@
         <div class="padlet-embed" style="box-sizing:border-box;overflow:hidden;position:relative;width:100%;background:#F4F4F4"><p style="padding:0;margin:0"><iframe src="https://padlet.com/embed/d55aoz8hq6c5euzy" frameborder="0" allow="camera;microphone;geolocation;display-capture;clipboard-write" style="width:100%;height:608px;display:block;padding:0;margin:0"></iframe></p><div style="display:flex;align-items:center;justify-content:end;margin:0;padding:8px 8px 8px 0"><a href="https://padlet.com?ref=embed" style="display:flex;align-items:center;gap:5px;flex-grow:0;margin:0;border:none;padding:0;text-decoration:none" target="_blank"><span aria-hidden style="color:#9E9E9E;font-size:10px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;line-height:1">Made with</span><img src="https://padlet.net/emails/padlet_email_logo_2026_text-dark-200.png" height="12" style="padding:0;margin:0;background:0 0;border:none;box-shadow:none;display:block" alt="Made with Padlet"></a></div></div>
     </div>
 
+    <div id="rsvpModal" class="modal-overlay">
+        <div class="modal-content">
+            <span id="closeModal" class="close-modal">&times;</span>
+            <h2 style="margin-top: 0; color: #1e293b; font-family: 'Georgia', serif;">RSVP</h2>
+            <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 20px;">Please let us know if you can make it so we can plan accordingly.</p>
+            <div class="form-group">
+                <label for="rsvpName">Who's coming?</label>
+                <input type="text" id="rsvpName" placeholder="e.g., Jane Doe & Family">
+            </div>
+            <div class="form-group">
+                <label for="rsvpCount">Approximate number in your group:</label>
+                <input type="number" id="rsvpCount" min="1" placeholder="e.g., 3">
+            </div>
+            <button id="submitRsvp" class="btn-submit">Send RSVP</button>
+        </div>
+    </div>
+
     <script>
+        // --- Share Button Logic ---
         const shareBtn = document.getElementById('shareButton');
         const shareText = document.getElementById('shareText');
 
@@ -418,6 +509,37 @@
                 shareText.innerHTML = 'Link Copied!';
                 setTimeout(() => { shareText.innerHTML = originalText; }, 2500);
             }
+        });
+
+        // --- RSVP Modal Logic ---
+        const modal = document.getElementById('rsvpModal');
+        const openBtn = document.getElementById('openRsvpBtn');
+        const closeBtn = document.getElementById('closeModal');
+        const submitBtn = document.getElementById('submitRsvp');
+
+        // Open the modal
+        openBtn.addEventListener('click', () => { modal.style.display = 'flex'; });
+
+        // Close the modal with the X button
+        closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+
+        // Close the modal by clicking outside the box
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) { modal.style.display = 'none'; }
+        });
+
+        // Submit button generates the pre-filled email
+        submitBtn.addEventListener('click', () => {
+            const name = document.getElementById('rsvpName').value || 'Guest';
+            const count = document.getElementById('rsvpCount').value || '1';
+            const subject = encodeURIComponent(`RSVP for Lisa's Memorial - ${name}`);
+            const body = encodeURIComponent(`Hello,\n\nWe would like to RSVP for the memorial gathering on April 11th.\n\nName(s): ${name}\nNumber in group: ${count}\n\nThank you.`);
+            
+            // Route to your email
+            window.location.href = `mailto:jermetzler@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Close the form
+            modal.style.display = 'none'; 
         });
     </script>
 </body>
