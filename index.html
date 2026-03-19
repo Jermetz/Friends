@@ -517,7 +517,17 @@
         const closeBtn = document.getElementById('closeModal');
         const submitBtn = document.getElementById('submitRsvp');
 
-        // Open the modal
+        // Auto-popup for first-time visitors
+        window.addEventListener('load', () => {
+            if (!localStorage.getItem('lisaMemorialVisited')) {
+                setTimeout(() => {
+                    modal.style.display = 'flex';
+                    localStorage.setItem('lisaMemorialVisited', 'true');
+                }, 2000); // 2-second delay so they can see the page first
+            }
+        });
+
+        // Open the modal manually via button
         openBtn.addEventListener('click', () => { modal.style.display = 'flex'; });
 
         // Close the modal with the X button
