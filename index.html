@@ -113,7 +113,7 @@
         .button-group {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap; /* Allows buttons to wrap to a new line if needed */
+            flex-wrap: wrap; 
             gap: 15px;
             margin: 35px auto 0;
             max-width: 650px;
@@ -129,7 +129,7 @@
             text-decoration: none;
             color: white;
             font-weight: bold;
-            flex: 1 1 200px; /* Allows buttons to grow and shrink evenly */
+            flex: 1 1 200px; 
             text-transform: uppercase;
             font-size: 0.85rem;
             letter-spacing: 0.5px;
@@ -143,7 +143,7 @@
 
         .btn-flowers { background-color: #d68c3e; } 
         .btn-tree { background-color: #5f8233; }    
-        .btn-memories { background-color: #4A90E2; } /* Soft blue for memories */
+        .btn-memories { background-color: #4A90E2; } 
 
         /* --- Obituary Content --- */
         .content-body {
@@ -195,8 +195,8 @@
         </video>
         
         <div class="logo-overlay">
-            <p class="logo-text">Barry M. Shriner</p>
-            <p class="logo-subtext">FUNERAL HOMES & CREMATORY</p>
+            <p class="logo-text">Metzler Family</p>
+            <p class="logo-subtext">IN LOVING MEMORY OF LISA METZLER</p>
         </div>
 
         <div class="profile-container">
@@ -239,6 +239,10 @@
             constant source of support.
         </p>
 
+        <p>
+            Lisa fought a courageous battle with addiction. Her family shares this truth to break the silence and stigma surrounding substance use disorder, with the hope that it may encourage others to seek the help they need.
+        </p>
+
         <div class="survivors-section">
             <span class="survivor-label">Surviving Family</span>
             <p>
@@ -250,7 +254,11 @@
             </p>
         </div>
         
-        <div class="button-group" style="padding-bottom: 40px;">
+        <p style="text-align: center; font-style: italic; color: #64748b; margin-top: 40px; margin-bottom: 10px; font-size: 1rem; padding: 0 15px;">
+            If you wish to honor Lisa's memory, the family kindly asks that donations be made to Overdose Lifeline to support those struggling with addiction and to help prevent further loss.
+        </p>
+
+        <div class="button-group" style="padding-bottom: 40px; margin-top: 15px;">
             <a href="https://websites.tukios.com/orders/v2/flowers/f91027a0-3be2-4fb9-99a5-f9db041ac8e7?ttm_origin=obituary&ttm_template=traditional&ttm_cta=f_sticky" class="btn btn-flowers" target="_blank">Send Flowers</a>
             <a href="https://www.overdoselifeline.org/donate/" class="btn btn-tree" target="_blank">Donate Now</a>
             <a href="mailto:jermetzler@gmail.com?subject=A Memory of Lisa" class="btn btn-memories">Share a Memory</a>
@@ -274,7 +282,6 @@
                     console.log('Error sharing:', err);
                 }
             } else {
-                // Fallback for desktop or browsers that don't support native sharing
                 navigator.clipboard.writeText(window.location.href);
                 const originalText = shareText.innerHTML;
                 shareText.innerHTML = 'Link Copied!';
