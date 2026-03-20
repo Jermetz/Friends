@@ -290,24 +290,40 @@
             align-items: center;
             justify-content: center;
         }
+        
         .modal-content {
             background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
             width: 90%;
-            max-width: 400px;
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            text-align: left;
+            max-width: 600px;
+            height: 85vh;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
+
+        .modal-header {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
         .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: #64748b;
             cursor: pointer;
             line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: #1e293b;
         }
 
         /* Mobile Adjustments */
@@ -364,7 +380,8 @@
             <h2 class="gathering-title">Memorial Gathering</h2>
             <p class="gathering-text">
                 Family and friends are warmly invited to join us in celebrating Lisa’s life, sharing fond memories, and finding comfort in one another's company.<br><br>
-                <em>Join us for a drop-in lunch featuring light fare (appetizers and desserts).</em>
+                <em>Join us for a drop-in lunch featuring light fare (appetizers and desserts).<br>
+                We respectfully request that this be an adults-only gathering.</em>
             </p>
             <div class="gathering-details">
                 Saturday, April 11th<br>
@@ -446,10 +463,14 @@
     </div>
 
     <div id="rsvpModal" class="modal-overlay">
-        <div class="modal-content" style="padding: 15px; max-width: 600px; height: 80vh; overflow: hidden; display: flex; flex-direction: column; box-sizing: border-box;">
-            <span id="closeModal" class="close-modal" style="position: absolute; top: 10px; right: 15px; z-index: 10; font-size: 2rem;">&times;</span>
-            <div style="flex-grow: 1; overflow-y: auto; margin-top: 30px; -webkit-overflow-scrolling: touch;">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScG4_HaGtdNyYv93Fo5sBW5agli1uTTtx1At5ekF0R4IBouqQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" style="border: none; min-height: 500px;">Loading…</iframe>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="margin: 0; font-family: 'Georgia', serif; font-size: 1.3rem; color: #1e293b;">RSVP</h2>
+                <span id="closeModal" class="close-modal">&times;</span>
+            </div>
+            
+            <div style="flex-grow: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; background-color: #f0ebf8;">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScG4_HaGtdNyYv93Fo5sBW5agli1uTTtx1At5ekF0R4IBouqQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" style="border: none; display: block; min-height: 500px;">Loading…</iframe>
             </div>
         </div>
     </div>
