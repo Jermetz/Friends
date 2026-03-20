@@ -238,6 +238,8 @@
             letter-spacing: 0.5px;
             transition: opacity 0.2s;
             text-align: center;
+            cursor: pointer;
+            border: none;
         }
 
         .btn:hover {
@@ -247,6 +249,7 @@
         .btn-flowers { background-color: #d68c3e; } 
         .btn-tree { background-color: #5f8233; }    
         .btn-memories { background-color: #4A90E2; } 
+        .btn-rsvp { background-color: #3b82f6; } 
 
         /* --- Obituary Content --- */
         .content-body {
@@ -384,8 +387,7 @@
                 We respectfully request that this be an adults-only gathering.</em>
             </p>
             <div class="gathering-details">
-                Saturday, April 11th<br>
-                11:00 AM – 2:00 PM<br>
+                Saturday, April 11th | <span style="white-space: nowrap;">11:00 AM – 2:00 PM</span><br>
                 The Willows at Historic Strasburg<br>
                 1500 Historic Drive, Strasburg, PA 17579
             </div>
@@ -397,7 +399,7 @@
                     </svg>
                     Get Directions
                 </a>
-                <button id="openRsvpBtn" class="btn-directions" style="background-color: #4A90E2; border: none; cursor: pointer;">
+                <button class="btn-directions openRsvpBtn" style="background-color: #4A90E2; border: none; cursor: pointer;">
                     Please RSVP
                 </button>
             </div>
@@ -448,6 +450,7 @@
         <div class="button-group" style="padding-bottom: 40px; margin-top: 15px;">
             <a href="https://websites.tukios.com/orders/v2/flowers/f91027a0-3be2-4fb9-99a5-f9db041ac8e7?ttm_origin=obituary&ttm_template=traditional&ttm_cta=f_sticky" class="btn btn-flowers" target="_blank">Send Flowers</a>
             <a href="https://www.overdoselifeline.org/donate/" class="btn btn-tree" target="_blank">Donate Now</a>
+            <button class="btn btn-rsvp openRsvpBtn">Please RSVP</button>
             <a href="mailto:jermetzler@gmail.com?subject=A Memory of Lisa" class="btn btn-memories">Email a Private Memory</a>
         </div>
 
@@ -470,6 +473,16 @@
             </div>
             
             <div style="flex-grow: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; background-color: #f0ebf8;">
+                
+                <div style="background-color: #fff; padding: 20px; text-align: center; border-bottom: 1px solid #e2e8f0;">
+                    <h3 style="margin: 0 0 10px 0; font-family: 'Georgia', serif; color: #1e293b; font-size: 1.2rem;">Memorial Gathering</h3>
+                    <p style="margin: 0; color: #64748b; font-size: 0.95rem; line-height: 1.5;">
+                        Saturday, April 11th | <span style="white-space: nowrap;">11:00 AM – 2:00 PM</span><br>
+                        The Willows at Historic Strasburg<br>
+                        <em>Adults-only drop-in lunch.</em>
+                    </p>
+                </div>
+
                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScG4_HaGtdNyYv93Fo5sBW5agli1uTTtx1At5ekF0R4IBouqQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" style="border: none; display: block; min-height: 500px;">Loading…</iframe>
             </div>
         </div>
@@ -501,7 +514,7 @@
 
         // --- RSVP Modal Logic ---
         const modal = document.getElementById('rsvpModal');
-        const openBtn = document.getElementById('openRsvpBtn');
+        const rsvpButtons = document.querySelectorAll('.openRsvpBtn');
         const closeBtn = document.getElementById('closeModal');
 
         // Auto-popup for first-time visitors
@@ -514,8 +527,10 @@
             }
         });
 
-        // Open the modal manually via button
-        openBtn.addEventListener('click', () => { modal.style.display = 'flex'; });
+        // Open the modal manually via ANY RSVP button
+        rsvpButtons.forEach(btn => {
+            btn.addEventListener('click', () => { modal.style.display = 'flex'; });
+        });
 
         // Close the modal with the X button
         closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
